@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:rve:2013:rve-body" xmlns:tns="urn:rve:2013:rve-body">
+<xs:element name="UpdatePasswordRequest" fixed=""/>
+    <xs:element name="UpdatePasswordResponse" type="tns:tUpdatePasswordResponse"/>
+<xs:complexType name="tUpdatePasswordResponse">
+        <xs:sequence>
+            <xs:element maxOccurs="1" minOccurs="1" type="xs:dateTime" name="expirationDate"/>
+        </xs:sequence>
+</xs:complexType>
+</xs:schema>

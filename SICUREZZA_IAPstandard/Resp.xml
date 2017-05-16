@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <soap:Header>
+        <wsa:Action xmlns:wsa="http://www.w3.org/2005/08/addressing">urn:rve:AuthenticateAndGetAssertionResponse</wsa:Action>
+        <wsa:MessageID xmlns:wsa="http://www.w3.org/2005/08/addressing">urn:uuid:19f95573-4738-11e5-b2da-22000a22d1c8</wsa:MessageID>
+        <wsa:To xmlns:wsa="http://www.w3.org/2005/08/addressing">http://X-ServiceUser</wsa:To>
+        <wsa:RelatesTo xmlns:wsa="http://www.w3.org/2005/08/addressing">urn:uuid:f342fdd9-8907-44a6-b2b1-66b6cb0f0a99</wsa:RelatesTo>
+    </soap:Header>
+    <soap:Body>
+        <samlp:Response Version="2.0" ID="19fa40ca473811e5a0c722000a22d1c8" InResponseTo="msgId_f342fdd9-8907-44a6-b2b1-66b6cb0f0a99" IssueInstant="2015-08-20T12:36:38Z" xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" xmlns:tns="http://www.bit4id.com/xmlns/ipam/">
+            <samlp:Status>
+                <samlp:StatusCode Value="urn:oasis:names:tc:SAML:2.0:status:Success"/>
+                <samlp:StatusMessage>OK</samlp:StatusMessage>
+            </samlp:Status>
+            <saml:Assertion Version="2.0" IssueInstant="2015-08-20T12:36:38Z" ID="assertion_1.2.3.4.5_msgId_f342fdd9-8907-44a6-b2b1-66b6cb0f0a99" xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">
+                <saml:Issuer>https://ipam-test.bit4id.org</saml:Issuer>
+                <ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+                    <ds:SignedInfo>
+                        <ds:CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
+                        <ds:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+                        <ds:Reference URI="#assertion_1.2.3.4.5_msgId_f342fdd9-8907-44a6-b2b1-66b6cb0f0a99">
+                            <ds:Transforms>
+                                <ds:Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
+                                <ds:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
+                            </ds:Transforms>
+                            <ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+                            <ds:DigestValue>aKb1oVgK6Kf5U+SR5isuRRfehN4=</ds:DigestValue>
+                        </ds:Reference>
+                    </ds:SignedInfo>
+                    <ds:SignatureValue>F8ygh6dQ9bP0TBgsp7EI/Mf5GcNc4cCw9azsFvAF7R4NIm29MwiLUtuYvNotBT+VHaYYQZTHHHb2rOOk0XRUk5LIQmOttpVdGWI34+DnmH1l2laD1yqXNYmQYxwfHnBVlqBKHRcdTaQpgq1AQ/LbW0iBdCdIlP8O3NIoN5nljsk=</ds:SignatureValue>
+                    <ds:KeyInfo>
+                        <ds:X509Data>
+                            <ds:X509Certificate>MIICjjCCAfegAwIBAgIQdPwc2ZWLEeOMbwAQ8y96JjANBgkqhkiG9w0BAQUFADBaMQswCQYDVQQGEwJJVDEZMBcGA1UEChMQQ01TIE9SR0FOSVpBVElPTjEaMBgGA1UECxMRQ01TIFdvcmtpbmcgR3JvdXAxFDASBgNVBAMTC0NNUyBUZXN0IENBMB4XDTE0MDIxNDE1MTk1NFoXDTE3MDEyOTE1MTk1NFowWzEYMBYGA1UEAxMPaXBhbS5iaXQ0aWQub3JnMRkwFwYDVQQLExBCaXQ0aWQgVGVzdCBBV1MzMRcwFQYDVQQKEw5SZWdpb25lIFZlbmV0bzELMAkGA1UEBhMCSVQwgZ8wDQYJKoZIhvcNAQEBBQADgY0AMIGJAoGBAJbluhaddom69Ji3KChXUymxGp4inSa/C2T5qde2ExeXrDHoTSk01awMfKJmkI1p4/qbjbveAXJ493GS6FO5aNhtu7q248OJaYlmcgi4jWZcW3tg/79YNrGiDmVPijFRTRIssYlaxWnBvSi1OAfR3W8JBQftT2uZxyNtqZb4qKlNAgMBAAGjVDBSMAkGA1UdEwQCMAAwEwYDVR0lBAwwCgYIKwYBBQUHAwEwHQYDVR0EBBYwFDAOMAwGCisGAQQBgjcCARYDAgeAMBEGCWCGSAGG+EIBAQQEAwIEEDANBgkqhkiG9w0BAQUFAAOBgQAHJtDQfThmWt2l/ybsWIk5Rd892ZYWgT77N9k5/VzlUztzezRstvycS7Xpz0m4KMqUWyZM/yXNwh+JeaMdb5RxEK3hGXbbeiFPRjvpdFljEeAdhdjbHh/hlwasYZ2Z0Qu6NZR/8l97/vvs/YRA6aM1JMq/F31saXXPqjyHJPx+bw==</ds:X509Certificate>
+                        </ds:X509Data>
+                        <ds:KeyValue>
+                            <ds:RSAKeyValue>
+                                <ds:Modulus>luW6Fp12ibr0mLcoKFdTKbEaniKdJr8LZPmp17YTF5esMehNKTTVrAx8omaQjWnj+puNu94Bcnj3cZLoU7lo2G27urbjw4lpiWZyCLiNZlxbe2D/v1g2saIOZU+KMVFNEiyxiVrFacG9KLU4B9HdbwkFB+1Pa5nHI22plvioqU0=</ds:Modulus>
+                                <ds:Exponent>AQAB</ds:Exponent>
+                            </ds:RSAKeyValue>
+                        </ds:KeyValue>
+                    </ds:KeyInfo>
+                </ds:Signature>
+                <saml:Subject/>
+                <saml:Conditions NotBefore="2015-08-20T12:36:38Z" NotOnOrAfter="2015-08-20T16:36:38Z">
+                    <saml:AudienceRestriction>
+                        <saml:Audience>https://sar.regione.veneto.it/demInvioPrescritto</saml:Audience>
+                    </saml:AudienceRestriction>
+                </saml:Conditions>
+                <saml:AuthnStatement AuthnInstant="2015-08-20T12:36:38Z">
+                    <saml:AuthnContext>
+                        <saml:AuthnContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:InternetProtocolPassword</saml:AuthnContextClassRef>
+                        <saml:AuthenticatingAuthority>https://ipam-test.bit4id.org</saml:AuthenticatingAuthority>
+                    </saml:AuthnContext>
+                </saml:AuthnStatement>
+                <saml:AttributeStatement>
+                    <saml:Attribute Name="UserClientAuthentication">
+                        <saml:AttributeValue>A.1.1</saml:AttributeValue>
+                    </saml:Attribute>
+                    <saml:Attribute Name="ApplicationID">
+                        <saml:AttributeValue>2.16.840.1.113883.2.9.2.50.4.5.12345</saml:AttributeValue>
+                    </saml:Attribute>
+                    <saml:Attribute Name="Role" NameFormat="urn:oasis:names:tc:xacml:2.0:subject:role" xmlns:rve-b="urn:rve:2013:rve-body">
+                        <saml:AttributeValue>R.1.1</saml:AttributeValue>
+                    </saml:Attribute>
+                    <saml:Attribute Name="ResponsibleParty" xmlns:rve-b="urn:rve:2013:rve-body">
+                        <saml:AttributeValue>BRGPLA59L22M048Q</saml:AttributeValue>
+                    </saml:Attribute>
+                </saml:AttributeStatement>
+            </saml:Assertion>
+        </samlp:Response>
+    </soap:Body>
+</soap:Envelope>

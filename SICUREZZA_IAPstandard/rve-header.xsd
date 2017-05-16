@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="rve-header.xsd">
+    <xs:element name="NewPassword" type="xs:base64Binary"/>
+</xs:schema>

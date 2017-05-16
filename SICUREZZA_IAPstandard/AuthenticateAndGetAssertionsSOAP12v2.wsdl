@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:responsens="urn:oasis:names:tc:SAML:2.0:protocol"
+	xmlns:utp="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+	xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"
+	xmlns:requestns="urn:oasis:names:tc:SAML:2.0:protocol" xmlns:requestns2="urn:rve:2013:rve-body"
+	xmlns:responsens2="urn:rve:2013:rve-body" xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion"
+	xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
+	xmlns:tns="urn:rve:2013:authenticateAndGetAssertion"
+	xmlns:wsbf="http://docs.oasis-open.org/wsrf/bf-2"
+	xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:rve-b="urn:rve:2013:rve-body"
+	name="IdentityAndAssertionProvider" targetNamespace="urn:rve:2013:authenticateAndGetAssertion">
+	<wsdl:documentation>Versione 0.1, 17novembre2013</wsdl:documentation>
+	<wsdl:types>
+		<xsd:schema elementFormDefault="qualified">
+			<xsd:import namespace="http://www.w3.org/2005/08/addressing"
+				schemaLocation="http://www.w3.org/2006/03/addressing/ws-addr.xsd"/>
+		</xsd:schema>
+		<xsd:schema elementFormDefault="qualified">
+			<xsd:import namespace="urn:oasis:names:tc:SAML:2.0:protocol"
+				schemaLocation="saml-schema-protocol-2.0.xsd"/>
+		</xsd:schema>
+		<xsd:schema elementFormDefault="qualified">
+			<xsd:import
+				namespace="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"
+				schemaLocation="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"/>
+		</xsd:schema>
+		<xsd:schema elementFormDefault="qualified">
+			<xsd:import
+				namespace="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+				schemaLocation="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"/>
+		</xsd:schema>
+		<xsd:schema elementFormDefault="qualified">
+			<xsd:import namespace="urn:oasis:names:tc:SAML:2.0:assertion"
+				schemaLocation="saml-schema-assertion-2.0.xsd"/>
+		</xsd:schema>
+		<xsd:schema>
+			<xsd:import namespace="http://docs.oasis-open.org/wsrf/bf-2" schemaLocation="bf-2.xsd"/>
+		</xsd:schema>
+		<xsd:schema>
+			<xsd:import namespace="urn:rve:2013:rve-body" schemaLocation="rve-body.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="addressing">
+		<wsdl:part name="addressingTo" element="wsa:To"/>
+		<wsdl:part name="addressingMsgID" element="wsa:MessageID"/>
+	</wsdl:message>
+	<wsdl:message name="addressingResp">
+		<wsdl:part name="addressingRelatesTo" element="wsa:RelatesTo"/>
+	</wsdl:message>
+	<wsdl:message name="authentication">
+		<wsdl:part name="securityHeader" element="wsse:Security"/>
+	</wsdl:message>
+	<wsdl:message name="response">
+		<wsdl:part name="AuthenticateAndGetAssertionResponse" element="responsens:Response"/>
+	</wsdl:message>
+	<wsdl:message name="request">
+		<wsdl:part name="AuthenticateAndGetAssertionRequest" element="requestns:AuthnRequest"/>
+	</wsdl:message>
+	<wsdl:message name="request2">
+		<wsdl:part name="updateReq" element="requestns2:UpdatePasswordRequest"/>
+	</wsdl:message>
+	<wsdl:message name="response2">
+		<wsdl:part name="updateRes" element="responsens2:UpdatePasswordResponse"/>
+	</wsdl:message>
+	<wsdl:message name="Fault">
+		<wsdl:part name="parameter" element="wsbf:BaseFault"/>
+	</wsdl:message>
+	<wsdl:portType name="AuthenticateAndGetAssertionPT">
+		<wsdl:operation name="AuthenticateAndGetAssertion">
+			<wsdl:input message="tns:request" name="AuthenticateAndGetAssertionRequest"
+				wsaw:Action="urn:rve:AuthenticateAndGetAssertionRequest"/>
+			<wsdl:output message="tns:response" name="AuthenticateAndGetAssertionResponse"
+				wsaw:Action="urn:rve:AuthenticateAndGetAssertionResponse"/>
+			<wsdl:fault name="BaseFault" message="tns:Fault"/>
+		</wsdl:operation>
+		<wsdl:operation name="UpdatePassword">
+			<wsdl:input message="tns:request2" name="UpdatePasswordRequest"
+				wsaw:Action="urn:rve:UpdatePasswordRequest"/>
+			<wsdl:output message="tns:response2" name="UpdatePasswordResponse"
+				wsaw:Action="urn:rve:UpdatePasswordResponse"/>
+			<wsdl:fault name="BaseFault" message="tns:Fault"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="AuthenticateAndGetAssertionBinding" type="tns:AuthenticateAndGetAssertionPT">
+		<soap12:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="AuthenticateAndGetAssertion">
+			<soap12:operation soapAction="urn:rve:AuthenticateAndGetAssertion"/>
+			<wsdl:input>
+				<soap12:header message="tns:addressing" part="addressingTo" use="literal"/>
+				<soap12:header message="tns:addressing" part="addressingMsgID" use="literal"/>
+				<soap12:header message="tns:authentication" part="securityHeader" use="literal"/>
+				<soap12:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:header message="tns:addressing" part="addressingMsgID" use="literal"/>
+				<soap12:header message="tns:addressingResp" part="addressingRelatesTo" use="literal"/>
+				<soap12:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="UpdatePassword">
+			<soap12:operation soapAction="urn:rve:UpdatePassword"/>
+			<wsdl:input>
+				<soap12:header message="tns:addressing" part="addressingTo" use="literal"/>
+				<soap12:header message="tns:addressing" part="addressingMsgID" use="literal"/>
+				<soap12:header message="tns:authentication" part="securityHeader" use="literal"/>
+				<soap12:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:header message="tns:addressing" part="addressingMsgID" use="literal"/>
+				<soap12:header message="tns:addressingResp" part="addressingRelatesTo" use="literal"/>
+				<soap12:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IAPserviceRVE">
+		<wsdl:port name="AuthenticateAndGetAssertionService"
+			binding="tns:AuthenticateAndGetAssertionBinding">
+			<soap12:address location="https://ulssX.provincia.it/AuthenticateAndGetAssertion"/>
+		</wsdl:port>
+		<wsdl:port name="UpdatePasswordService" binding="tns:AuthenticateAndGetAssertionBinding">
+			<soap12:address location="https://ulssX.provincia.it/UpdatePassword"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

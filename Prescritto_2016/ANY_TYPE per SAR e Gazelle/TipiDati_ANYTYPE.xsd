@@ -1,0 +1,448 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="http://tipodati.xsd.dem.sanita.finanze.it" xmlns:cda="urn:hl7-org:v3" xmlns:hl="urn:hl7-org:v2xml"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://tipodati.xsd.dem.sanita.finanze.it" elementFormDefault="qualified"
+	attributeFormDefault="unqualified">
+	<xs:import namespace="urn:hl7-org:v3" schemaLocation="POCD_MT000040.xsd"/>
+	<!-- aggiunto per OLTRECUP 06/10/2015 -->
+	<xs:import namespace="urn:hl7-org:v2xml" schemaLocation="SQR_S25.xsd"/>
+	<xs:annotation>
+		<xs:documentation>Versione 2.0 del 6 novembre 2015</xs:documentation>
+	</xs:annotation>
+	<xs:simpleType name="nreType">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="15"/>
+			<xs:maxLength value="15"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="codRegioneType">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="3"/>
+			<xs:maxLength value="3"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="cfMedicoType">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="0"/>
+			<xs:maxLength value="16"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="codSpecializzazioneType">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tipoInvioType">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="3"/>
+			<xs:maxLength value="3"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tipoRicettaType">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="2"/>
+			<xs:maxLength value="2"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tipoPrescType">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tipoVisitaType">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="indicPrescType">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="prioritaType">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="dataOraType">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="19"/>
+			<xs:maxLength value="19"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="codEsitoType">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[0-9]{4}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!-- aggiunta 4/11/16 per ermete -->
+	<xs:simpleType name="codEsitoType1">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="4"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="stringType">
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	<!-- aggiunta 27/07/15 -->
+	<xs:simpleType name="string1Type">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="string256Type">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="256"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="integerType">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[0-9]"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!-- aggiunti per NOTE strutturate 04/11/15 -->
+	<xs:complexType abstract="true" name="ANY">
+		<xs:annotation>
+			<xs:documentation> Defines the basic properties of every data value. This is an abstract type, meaning that no value can be just a data value without belonging to any concrete type. Every concrete type is a specialization of this general abstract DataValue type. </xs:documentation>
+		</xs:annotation>
+	</xs:complexType>
+	<xs:simpleType name="cs">
+		<xs:annotation>
+			<xs:documentation> Coded data in its simplest form, consists of a code. The code system and code system version is fixed by the context in which the CS value occurs. CS is used for coded attributes that have a single HL7-defined value set. </xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:token">
+			<xs:pattern value="[^\s]+"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="uid">
+		<xs:annotation>
+			<xs:documentation> A unique identifier string is a character string which identifies an object in a globally unique and timeless manner. The allowable formats and values and procedures of this data type are strictly controlled by HL7. At this time, user-assigned identifiers may be certain character representations of ISO Object Identifiers (OID) and DCE Universally Unique Identifiers (UUID). HL7 also reserves the right to assign other forms of UIDs, such as mnemonic identifiers for code systems. </xs:documentation>
+		</xs:annotation>
+		<xs:union memberTypes="oid uuid ruid"/>
+	</xs:simpleType>
+	<xs:simpleType name="oid">
+		<xs:annotation>
+			<xs:documentation> A globally unique string representing an ISO Object Identifier (OID) in a form that consists only of non-negative numbers with no leading zeros and dots (e.g., "2.16.840.1.113883.3.1"). According to ISO, OIDs are paths in a tree structure, with the left-most number representing the root and the right-most number representing a leaf. </xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[0-2](\.(0|[1-9][0-9]*))*"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="uuid">
+		<xs:annotation>
+			<xs:documentation> A DCE Universal Unique Identifier is a globally unique string consisting of 5 groups of upper- or lower-case hexadecimal digits having 8, 4, 4, 4, and 12 places respectively. UUIDs are assigned using Ethernet MAC addresses, the point in time of creation and some random components. This mix is believed to generate sufficiently unique identifiers without any organizational policy for identifier assignment (in fact this piggy-backs on the organization of MAC address assignment.) </xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[0-9a-zA-Z]{8}-[0-9a-zA-Z]{4}-[0-9a-zA-Z]{4}-[0-9a-zA-Z]{4}-[0-9a-zA-Z]{12}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ruid">
+		<xs:annotation>
+			<xs:documentation> HL7 reserved identifiers are strings consisting only of (US-ASCII) letters, digits and hyphens, where the first character must be a letter. HL7 may assign these reserved identifiers as mnemonic identifiers for major concepts of interest to HL7. </xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[A-Za-z][A-Za-z0-9\-]*"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="st">
+		<xs:annotation>
+			<xs:documentation> The character string data type stands for text data, primarily intended for machine processing (e.g., sorting, querying, indexing, etc.) Used for names, symbols, and formal expressions. </xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="periodtype">
+		<xs:attribute name="value"/>
+		<xs:attribute name="unit"/>
+	</xs:complexType>
+	<xs:complexType name="CD">
+		<xs:annotation>
+			<xs:documentation> A concept descriptor represents any kind of concept usually by giving a code defined in a code system. A concept descriptor can contain the original text or phrase that served as the basis of the coding and one or more translations into different coding systems. A concept descriptor can also contain qualifiers to describe, e.g., the concept of a "left foot" as a postcoordinated term built from the primary code "FOOT" and the qualifier "LEFT". In exceptional cases, the concept descriptor need not contain a code but only the original text describing that concept. </xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="ANY">
+				<xs:sequence>
+					<xs:element maxOccurs="unbounded" minOccurs="0" name="translation" type="CD">
+						<xs:annotation>
+							<xs:documentation> A set of other concept descriptors that translate this concept descriptor into other code systems. </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+				<xs:attribute name="code" type="cs" use="optional">
+					<xs:annotation>
+						<xs:documentation> The plain code symbol defined by the code system. For example, "784.0" is the code symbol of the ICD-9 code "784.0" for headache. </xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="codeSystem" type="uid" use="optional">
+					<xs:annotation>
+						<xs:documentation> Specifies the code system that defines the code. </xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="codeSystemName" type="st" use="optional">
+					<xs:annotation>
+						<xs:documentation> A common name of the coding system. </xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="codeSystemVersion" type="st" use="optional">
+					<xs:annotation>
+						<xs:documentation> If applicable, a version descriptor defined specifically for the given code system. </xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="displayName" type="st" use="optional">
+					<xs:annotation>
+						<xs:documentation> A name or title for the code, under which the sending system shows the code value to its users. </xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!-- DATA -->
+	<xs:complexType name="descrTestoLiberoNoteType">
+		<xs:sequence>
+			<xs:element name="code" type="CD" maxOccurs="unbounded"/>
+			<xs:element name="effectiveTimeRVE" type="effectivetimeRVEtype" maxOccurs="unbounded"/>
+			<xs:element name="text" minOccurs="1" type="stringType" maxOccurs="1"></xs:element>
+		</xs:sequence>
+		<xs:attribute name="type" fixed="coded"/>
+	</xs:complexType>
+	
+	<xs:simpleType name="SetUse">
+		<xs:annotation>
+			<xs:documentation>value set per significato DATE RVE</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="cs">
+			<xs:enumeration value="tempisticheControlli"/>
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:complexType name="effectivetimeRVEtype">
+		
+		<xs:sequence>
+			<xs:element name="low" minOccurs="0" maxOccurs="1">
+				<xs:complexType>
+					<xs:attribute name="value" type="xs:integer"></xs:attribute>
+					<xs:attribute name="unit" type="UnitType"></xs:attribute>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="high" minOccurs="0" maxOccurs="1">
+				<xs:complexType>
+					<xs:attribute name="value" type="xs:integer"></xs:attribute>
+					<xs:attribute name="unit" type="UnitType">
+					</xs:attribute>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="use" type="SetUse" use="required"></xs:attribute>
+	</xs:complexType>
+	
+	<xs:simpleType name="UnitType">
+		<xs:annotation>
+			<xs:documentation>value set per significato DATE RVE</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="cs">
+			<xs:enumeration value="m"/>
+			<xs:enumeration value="g"/>
+			<xs:enumeration value="h"/>
+		</xs:restriction>
+	</xs:simpleType>
+	
+	
+	<xs:complexType name="erroreRicettaType">
+		<xs:sequence>
+			<xs:element name="codEsito" type="codEsitoType1"/>
+			<xs:element name="esito" type="stringType" minOccurs="0"/>
+			<xs:element name="progPresc" type="stringType" minOccurs="0"/>
+			<xs:element name="tipoErrore" type="stringType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="elencoErroriRicetteType">
+		<xs:sequence>
+			<xs:element name="ErroreRicetta" type="erroreRicettaType" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="dettaglioPrescrizioneType">
+		<xs:sequence>
+			<xs:element name="codProdPrest" type="stringType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Codice prodotto farmaceutico (AIC) o codice prestazione
+						specialistica</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="descrProdPrest" type="stringType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Descrizione testuale del prodotto farmaceutico o della
+						prestazione specialistica</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="codGruppoEquival" type="stringType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Codice del gruppo equivalente</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="descrGruppoEquival" type="stringType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Descrizione testuale del gruppo equivalente</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="testoLibero" type="stringType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Campo che indica di tenere conto solamente della descrizione
+						inserita in descrTestoLibero</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			
+			<xs:element name="descrTestoLiberoNote" minOccurs="0" type="xs:anyType">
+			</xs:element>
+			
+			<!--
+			<xs:element name="descrTestoLiberoNote" minOccurs="0" >
+				<xs:alternative type="descrTestoLiberoNoteType" test="@type='coded'"/>
+				<xs:alternative type="stringType" test="@type!='coded'"/>
+			</xs:element>
+			 -->
+			<xs:element name="nonSost" type="stringType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Non sostituibilità del farmaco</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="motivazNote" type="stringType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Motivazione della non sostituibilità</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="codMotivazione" type="stringType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Codici di motivazione di non sostituibilità di un
+						farmaco</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="notaProd" type="stringType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Nota AIFA</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="quantita" type="integerType">
+				<xs:annotation>
+					<xs:documentation>Quantita' di confezioni o di prestazioni specialistiche
+						prescritte</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="prescrizione1" type="stringType" minOccurs="0">
+				<!-- modifica documentation  -->
+				<xs:annotation>
+					<xs:documentation>riservato SAC</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="prescrizione2" type="xs:anyType" minOccurs="0">
+			</xs:element>
+			<!--<xs:element name="prescrizione2">
+				<!-\- cambiato 16/03/2014 per avere CVP e Posologia -\->
+				<xs:alternative type="cda:POCD_MT000040.SubstanceAdministration"
+					test="@classCode='SBADM'" xpathDefaultNamespace="urn:hl7-org:v3"/>
+				<xs:alternative type="stringType" test="@classCode!='SBADM'"/>
+			</xs:element>-->
+			<xs:element name="codCatalogoPrescr" type="stringType" minOccurs="0">
+				<!-- modifica documentation 10/07/15 -->
+				<xs:annotation>
+					<xs:documentation>Campo riservato al codice del catalogo regionale della prestazione prescritta.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="tipoAccesso" type="string1Type" minOccurs="0">
+				<!-- modifica documentation 10/07/15 -->
+				<xs:annotation>
+					<xs:documentation>Tipologia di accesso</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<!-- aggiunti DL lorenzin 11/04/16 -->
+			<xs:element name="numeroNota" type="maxString10" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Decreto Lorenzin</xs:documentation>
+				</xs:annotation>
+			</xs:element>	
+			<xs:element name="condErogabilita" type="maxString10" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Decreto Lorenzin</xs:documentation>
+				</xs:annotation>
+			</xs:element>	
+			<xs:element name="approprPrescrittiva" type="maxString10" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Decreto Lorenzin</xs:documentation>
+				</xs:annotation>
+			</xs:element>	
+			<xs:element name="patologia" type="maxString10" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Decreto Lorenzin</xs:documentation>
+				</xs:annotation>
+			</xs:element>					
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="elencoDettagliPrescrizioniType">
+		<xs:sequence>
+			<xs:element name="DettaglioPrescrizione" type="dettaglioPrescrizioneType"
+				maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="comunicazioneType">
+		<xs:sequence>
+			<xs:element name="codice" type="stringType">
+				<xs:annotation>
+					<xs:documentation>Codice della comunicazione di servizio</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="messaggio" type="stringType">
+				<xs:annotation>
+					<xs:documentation>Messaggio di servizio</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="elencoComunicazioniType">
+		
+		
+		<!-- modificato 06/10/15 -->
+		<xs:sequence>
+			<xs:element name="Comunicazione" type="comunicazioneType" maxOccurs="unbounded"/>
+			<xs:element name="SQR_S25.SCHEDULE" type="hl:SQR_S25.SCHEDULE.CONTENT" minOccurs="0"/>
+		</xs:sequence>
+	
+	</xs:complexType>
+	<!-- aggiunti per DL Lorenzin 11/04/16 -->
+	<xs:complexType name="notaType">
+		<xs:sequence>
+			<xs:element name="progrPresc" type="stringType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Decreto Lorenzin</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="codProdPrest" type="stringType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Decreto Lorenzin</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="tipoAmbulatorio" type="maxString10" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Decreto Lorenzin</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="elencoNotaType">
+		<xs:sequence>
+			<xs:element name="Nota" type="notaType" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="maxString10">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="10"/>
+		</xs:restriction>
+	</xs:simpleType>
+	
+</xs:schema>

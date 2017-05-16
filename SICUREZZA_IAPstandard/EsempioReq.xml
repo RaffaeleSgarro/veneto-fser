@@ -1,0 +1,52 @@
+<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope"
+    xmlns:wsa="http://www.w3.org/2005/08/addressing">
+    <soap:Header>
+        <wsse:Security
+            xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"
+            xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+            <wsse:UsernameToken>
+                <wsse:Username>pippo</wsse:Username>
+                <wsse:Password Type="rve:PasswordEncrypted"
+                    >pGtVg6F0N66GyvFvb71IDRmhta8OXoVg44mitNIUvVteQN7LZMyebf6fAofhc0hh
+                    i5srKsv11nhSmtb8hEiT6/060crztp5ygfPYqR2z1dSx6ML3/1DRs0bfBBmfURRd
+                    cOGM4pkx/cu9adChRR5urvI/1lUH/u4NPuSLX9QwlW8D5FLcTaOF6GNve4zI2/P0
+                    /tdqslVfB33LFvHUy2v8iGA3Q1X5Ext3VnHtRZd7H2vZoiRUZAViic7VBiThF5zW
+                    bpCLMN6pPLPfLXEo4I4KFI4k/Mk8ut2nOkrh5F2bTnsL6//J7zFtajz3MhYTW+C9
+                    +yj8tpfbhVQa+HgpX7qzsg==</wsse:Password>
+                <wsse:Nonce>NONCE</wsse:Nonce>
+                <wsu:Created>2015-08-17T14:52:00Z</wsu:Created>
+            </wsse:UsernameToken>
+        </wsse:Security>
+        <wsa:MessageID>urn:uuid:0b8f07b0-2f46-4cf7-a7c8-7e6da412d300</wsa:MessageID>
+        <wsa:Action>urn:rve:AuthenticateAndGetAssertion</wsa:Action>
+    </soap:Header>
+    <soap:Body>
+        <samlp:AuthnRequest xmlns:saml2="urn:oasis:names:tc:SAML:2.0:assertion"
+            xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol"
+            ID="msgId_0b8f07b0-2f46-4cf7-a7c8-7e6da412d300" IssueInstant="2015-08-17T14:52:00Z"
+            Version="2.0">
+            <saml2:Issuer>CFissuer</saml2:Issuer>
+            <samlp:Extensions>
+                <saml2:AttributeStatement>
+                    <saml2:Attribute Name="UserClientAuthentication">
+                        <saml2:AttributeValue>A.1</saml2:AttributeValue>
+                    </saml2:Attribute>
+                    <saml2:Attribute Name="ApplicationID">
+                        <saml2:AttributeValue>2.16.840.1.113883.2.9.2.50.4.5.12345</saml2:AttributeValue>
+                    </saml2:Attribute>
+                    <saml2:Attribute Name="RequestContext">
+                        <saml2:AttributeValue>C.1.1</saml2:AttributeValue>
+                    </saml2:Attribute>
+                </saml2:AttributeStatement>
+            </samlp:Extensions>
+            <saml2:Subject>
+                <saml2:NameID>CFsubject</saml2:NameID>
+            </saml2:Subject>
+            <saml2:Conditions xmlns="urn:oasis:names:tc:SAML:2.0:assertion" NotBefore="2015-08-17T14:52:00Z" NotOnOrAfter="2015-08-17T14:52:00Z">
+                <AudienceRestriction>
+                    <Audience>https://Audience</Audience>
+                </AudienceRestriction>
+            </saml2:Conditions>
+        </samlp:AuthnRequest>
+    </soap:Body>
+</soap:Envelope>
